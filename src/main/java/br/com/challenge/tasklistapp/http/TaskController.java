@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static net.logstash.logback.argument.StructuredArguments.kv;
@@ -110,7 +111,7 @@ public class TaskController {
     public ResponseEntity<TaskVO> updatePatchTask(
             @ApiParam()
             @PathVariable("id") final String taskId,
-            @RequestBody @Valid final TaskVORequest request) throws NotFoundException {
+            @RequestBody final TaskVORequest request) throws NotFoundException {
 
         log.info("Request to patch task by id", kv("API", "PATCH_TASK_ID"));
 

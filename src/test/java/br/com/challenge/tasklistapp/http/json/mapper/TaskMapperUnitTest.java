@@ -43,7 +43,7 @@ public class TaskMapperUnitTest {
 
     @Test
     public void shouldMapperVORequestoToDomainSuccessfully() {
-        TaskVORequest taskVORequest = new TaskVORequest("Task Name", "Task Description", "Report Name", "Assigned Name");
+        TaskVORequest taskVORequest = new TaskVORequest("Task Name", "Task Description", TaskStatus.WIP, "Report Name", "Assigned Name");
 
         Task task = TaskMapper.MAPPER.taskRequestToDomain(taskVORequest);
 

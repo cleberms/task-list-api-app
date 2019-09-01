@@ -60,7 +60,7 @@ public class TaskDataBaseGatewayImpl implements TaskDataBaseGateway {
         try {
             final Optional<List<Task>> optionalTasks = Optional.ofNullable(repository.findAll());
 
-            if (optionalTasks.isPresent()) {
+            if (optionalTasks.isPresent() && !optionalTasks.get().isEmpty()) {
                 log.info("Tasks found successfully", kv("FEATURE", "FIND_ALL"), kv("STATUS", "SUCCESS"));
 
                 return optionalTasks.get();
@@ -72,7 +72,7 @@ public class TaskDataBaseGatewayImpl implements TaskDataBaseGateway {
             throw new MongoException("Error to find all tasks");
         }
 
-        log.info("Tasks not found", kv("FEATURE", "FIND_ALL_BY_STATUS"), kv("STATUS", "SUCCESS"));
+        log.info("Tasks not found", kv("FEATURE", "FIND_ALL"), kv("STATUS", "SUCCESS"));
 
         throw new NotFoundException("Tasks not found");
 

@@ -102,7 +102,7 @@ public class TaskControllerTest {
 
     @Test
     public void shouldCreateTaskSuccessfully() throws Exception {
-        TaskVORequest taskVORequest = new TaskVORequest("Task Name", "Task Description", "Report Name", "Assigned Name");
+        TaskVORequest taskVORequest = new TaskVORequest("Task Name", "Task Description", TaskStatus.WIP, "Report Name", "Assigned Name");
         final List<Task> taskList = getTasks();
 
         when(createTask.process(any())).thenReturn(taskList.get(0));
@@ -123,7 +123,7 @@ public class TaskControllerTest {
 
     @Test
     public void shouldReturnBadRequestWhenTaskNameIsEmpty() throws Exception {
-        TaskVORequest taskVORequest = new TaskVORequest("", "Task Description", "Report Name", "Assigned Name");
+        TaskVORequest taskVORequest = new TaskVORequest("", "Task Description", TaskStatus.WIP, "Report Name", "Assigned Name");
         final List<Task> taskList = getTasks();
 
         when(createTask.process(any())).thenReturn(taskList.get(0));
@@ -137,7 +137,7 @@ public class TaskControllerTest {
 
     @Test
     public void shouldReturnBadRequestWhenReportNameIsNull() throws Exception {
-        TaskVORequest taskVORequest = new TaskVORequest("Create Test", "Task Description", null, "Assigned Name");
+        TaskVORequest taskVORequest = new TaskVORequest("Create Test", "Task Description", TaskStatus.WIP, null, "Assigned Name");
         final List<Task> taskList = getTasks();
 
         when(createTask.process(any())).thenReturn(taskList.get(0));
@@ -151,7 +151,7 @@ public class TaskControllerTest {
 
     @Test
     public void shouldUpdateTaskSuccessfully() throws Exception {
-        TaskVORequest taskVORequest = new TaskVORequest("Task Name", "Task Description", "Report Name", "Assigned Name");
+        TaskVORequest taskVORequest = new TaskVORequest("Task Name", "Task Description", TaskStatus.WIP, "Report Name", "Assigned Name");
         final List<Task> taskList = getTasks();
 
         when(updateTask.process(any(), any())).thenReturn(taskList.get(0));
@@ -172,7 +172,7 @@ public class TaskControllerTest {
 
     @Test
     public void shouldUpdatePatchTaskSuccessfully() throws Exception {
-        TaskVORequest taskVORequest = new TaskVORequest("Task Name", "Task Description", "Report Name", "Assigned Name");
+        TaskVORequest taskVORequest = new TaskVORequest("Task Name", "Task Description", TaskStatus.WIP, "Report Name", "Assigned Name");
         final List<Task> taskList = getTasks();
 
         when(updateTask.processPatch(any(), any())).thenReturn(taskList.get(0));
