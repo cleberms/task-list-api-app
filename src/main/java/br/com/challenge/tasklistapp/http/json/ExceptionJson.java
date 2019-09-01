@@ -14,10 +14,6 @@ public class ExceptionJson implements Comparable<ExceptionJson>, Serializable {
     private final String code;
     private final String message;
 
-//    public ExceptionJson(final String code, final String message) {
-//        this.code = code;
-//        this.message = message;
-//    }
 
     @JsonCreator
     public ExceptionJson(@JsonProperty("code") final String code,

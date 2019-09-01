@@ -17,6 +17,13 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
 		<org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+		<sonar.coverage.exclusions>
+			**/gen/**,
+			**/json/**,
+			**/config/**/*,
+			**/domains/**,
+			**/dto/*
+		</sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
