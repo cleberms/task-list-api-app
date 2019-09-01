@@ -1,7 +1,10 @@
 package br.com.challenge.tasklistapp.http;
 
+import br.com.challenge.tasklistapp.configs.JsonConverter;
 import br.com.challenge.tasklistapp.domains.Task;
 import br.com.challenge.tasklistapp.domains.enums.TaskStatus;
+import br.com.challenge.tasklistapp.http.json.TaskVORequest;
+import br.com.challenge.tasklistapp.usecases.CreateTask;
 import br.com.challenge.tasklistapp.usecases.QueryTaskById;
 import br.com.challenge.tasklistapp.usecases.QueryTasks;
 import org.junit.Before;
@@ -11,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,8 +26,10 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,6 +47,9 @@ public class TaskControllerTest {
     @MockBean
     private QueryTaskById queryTaskById;
 
+    @MockBean
+    private CreateTask createTask;
+
     private static final String API_PATH = "/api/tasks";
 
 
@@ -48,7 +57,7 @@ public class TaskControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test public void shouldGetAllTasks() throws Exception {
+    @Test public void shouldGetAllTasksSuccessfully() throws Exception {
         final List<Task> taskList = getTasks();
 
         when(queryTasks.process(null)).thenReturn(taskList);
@@ -72,7 +81,7 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("[1].assignedName", is(taskList.get(1).getAssignedName())));
     }
 
-    @Test public void shouldGetTaskById() throws Exception {
+    @Test public void shouldGetTaskByIdSucessfully() throws Exception {
         final List<Task> taskList = getTasks();
 
         when(queryTaskById.process(5004L)).thenReturn(taskList.get(0));
@@ -88,14 +97,63 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.assignedName", is(taskList.get(0).getAssignedName())));
     }
 
+    @Test
+    public void shouldCreateTaskSuccessfully() throws Exception {
+        TaskVORequest taskVORequest = new TaskVORequest("Task Name", "Task Description", "Report Name", "Assigned Name");
+        final List<Task> taskList = getTasks();
+
+        when(createTask.process(any())).thenReturn(taskList.get(0));
+
+        mockMvc.perform(post("/api/tasks")
+                .accept(MediaType.APPLICATION_JSON) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(JsonConverter.toString(taskVORequest)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.taskId", is(Integer.parseInt(taskList.get(0).getTaskId().toString()))))
+                .andExpect(jsonPath("$.createdAt", is(taskList.get(0).getCreatedAt().toString())))
+                .andExpect(jsonPath("$.updateAt", is(taskList.get(0).getUpdateAt().toString())))
+                .andExpect(jsonPath("$.description", is(taskList.get(0).getDescription())))
+                .andExpect(jsonPath("$.status", is(taskList.get(0).getStatus().toString())))
+                .andExpect(jsonPath("$.reporterName", is(taskList.get(0).getReporterName())))
+                .andExpect(jsonPath("$.assignedName", is(taskList.get(0).getAssignedName())));
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenTaskNameIsEmpty() throws Exception {
+        TaskVORequest taskVORequest = new TaskVORequest("", "Task Description", "Report Name", "Assigned Name");
+        final List<Task> taskList = getTasks();
+
+        when(createTask.process(any())).thenReturn(taskList.get(0));
+
+        mockMvc.perform(post("/api/tasks")
+                .accept(MediaType.APPLICATION_JSON) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(JsonConverter.toString(taskVORequest)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenReportNameIsNull() throws Exception {
+        TaskVORequest taskVORequest = new TaskVORequest("Create Test", "Task Description", null, "Assigned Name");
+        final List<Task> taskList = getTasks();
+
+        when(createTask.process(any())).thenReturn(taskList.get(0));
+
+        mockMvc.perform(post("/api/tasks")
+                .accept(MediaType.APPLICATION_JSON) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(JsonConverter.toString(taskVORequest)))
+                .andExpect(status().isBadRequest());
+    }
+
     private List<Task> getTasks() {
         List<Task> taskList = new ArrayList<>();
 
-        Task task = new Task("121",5014L, defaultLocalDateTime(),defaultLocalDateTime(), "Test gateway implementation",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
+        Task task = new Task("121",5014L, defaultLocalDateTime(),defaultLocalDateTime(), "Create Test", "Test gateway implementation",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
 
         taskList.add(task);
 
-        task = new Task("122",5015L, defaultLocalDateTime(),null, "Test gateway implementation to Repo",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
+        task = new Task("122",5015L, defaultLocalDateTime(),null, "Create Test", "Test gateway implementation to Repo",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
 
         taskList.add(task);
 

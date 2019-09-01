@@ -72,11 +72,11 @@ public class QueryTasksUnitTest {
     private List<Task> getTasks() {
         List<Task> taskList = new ArrayList<>();
 
-        Task task = new Task("121",5014L, null,null, "Test gateway implementation",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
+        Task task = new Task("121",5014L, null,null, "Create Teste", "Test gateway implementation",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
 
         taskList.add(task);
 
-        task = new Task("122",5015L, null,null, "Test gateway implementation to Repo",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
+        task = new Task("122",5015L, null,null, "Create Teste", "Test gateway implementation to Repo",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
 
         taskList.add(task);
 
@@ -93,5 +93,6 @@ public class QueryTasksUnitTest {
         assertEquals(expected.getTaskId(), result.getTaskId());
         assertEquals(expected.getUid(), result.getUid());
         assertEquals(expected.getUpdateAt(), result.getUpdateAt());
+        assertEquals(expected.getName(), result.getName());
     }
 }

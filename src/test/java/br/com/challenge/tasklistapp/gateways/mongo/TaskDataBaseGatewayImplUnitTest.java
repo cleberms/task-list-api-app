@@ -3,6 +3,7 @@ package br.com.challenge.tasklistapp.gateways.mongo;
 import br.com.challenge.tasklistapp.domains.Task;
 import br.com.challenge.tasklistapp.domains.enums.TaskStatus;
 import br.com.challenge.tasklistapp.gateways.TaskDataBaseGateway;
+import br.com.challenge.tasklistapp.gateways.mongo.repository.TaskRepository;
 import com.mongodb.MongoException;
 import javassist.NotFoundException;
 import org.junit.Before;
@@ -307,11 +308,11 @@ public class TaskDataBaseGatewayImplUnitTest {
     private List<Task> getTasks() {
         List<Task> taskList = new ArrayList<>();
 
-        Task task = new Task("121",5014L, null,null, "Test gateway implementation",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
+        Task task = new Task("121",5014L, null,null, "Create Test", "Test gateway implementation",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
 
         taskList.add(task);
 
-        task = new Task("122",5015L, null,null, "Test gateway implementation to Repo",TaskStatus.TO_DO,"Cleber Santaterra", "Cleber Santaterra");
+        task = new Task("122",5015L, null,null, "Create Test", "Test gateway implementation to Repo",TaskStatus.TO_DO,"Cleber Santaterra", "Cleber Santaterra");
 
         taskList.add(task);
 
@@ -328,5 +329,6 @@ public class TaskDataBaseGatewayImplUnitTest {
         assertEquals(expected.getTaskId(), result.getTaskId());
         assertEquals(expected.getUid(), result.getUid());
         assertEquals(expected.getUpdateAt(), result.getUpdateAt());
+        assertEquals(expected.getName(), result.getName());
     }
 }

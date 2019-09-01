@@ -32,7 +32,7 @@ public class QueryTaskByIdUnitTest {
 
     @Test public void shouldReturnTaskSuccessfully() throws Exception {
 
-        final Task taskMocked = new Task("121",5014L, defaultLocalDateTime(),defaultLocalDateTime(), "Test gateway implementation",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
+        final Task taskMocked = new Task("121",5014L, defaultLocalDateTime(),defaultLocalDateTime(), "Create Test", "Test gateway implementation",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
 
         when(gateway.findById(any())).thenReturn(taskMocked);
 
@@ -48,6 +48,7 @@ public class QueryTaskByIdUnitTest {
         assertEquals(taskMocked.getTaskId(), result.getTaskId());
         assertEquals(taskMocked.getUid(), result.getUid());
         assertEquals(taskMocked.getUpdateAt(), result.getUpdateAt());
+        assertEquals(taskMocked.getName(), result.getName());
 
     }
 

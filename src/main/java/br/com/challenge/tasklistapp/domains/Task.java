@@ -40,6 +40,9 @@ public class Task {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime updateAt;
 
+    @Field("name")
+    private String name;
+
     @Field("description")
     private String description;
 

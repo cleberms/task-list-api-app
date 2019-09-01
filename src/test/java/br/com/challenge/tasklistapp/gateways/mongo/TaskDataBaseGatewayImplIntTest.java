@@ -4,12 +4,11 @@ import br.com.challenge.tasklistapp.configs.SpringMongoConfiguration;
 import br.com.challenge.tasklistapp.domains.Task;
 import br.com.challenge.tasklistapp.domains.enums.TaskStatus;
 import br.com.challenge.tasklistapp.gateways.TaskDataBaseGateway;
-import com.mongodb.MongoException;
+import br.com.challenge.tasklistapp.gateways.mongo.repository.TaskRepository;
 import javassist.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -21,9 +20,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = { SpringMongoConfiguration.class, TaskDataBaseGatewayImpl.class })
@@ -129,11 +126,11 @@ public class TaskDataBaseGatewayImplIntTest {
     private List<Task> getTasks() {
         List<Task> taskList = new ArrayList<>();
 
-        Task task = new Task("121",5014L, null,null, "Test gateway implementation",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
+        Task task = new Task("121",5014L, null,null, "Create Test", "Test gateway implementation",TaskStatus.WIP,"Cleber Santaterra", "Cleber Santaterra");
 
         taskList.add(task);
 
-        task = new Task("122",5015L, null,null, "Test gateway implementation to Repo",TaskStatus.TO_DO,"Cleber Santaterra", "Cleber Santaterra");
+        task = new Task("122",5015L, null,null, "Create Test", "Test gateway implementation to Repo",TaskStatus.TO_DO,"Cleber Santaterra", "Cleber Santaterra");
 
         taskList.add(task);
 
@@ -150,5 +147,6 @@ public class TaskDataBaseGatewayImplIntTest {
         assertEquals(expected.getTaskId(), result.getTaskId());
         assertEquals(expected.getUid(), result.getUid());
         assertEquals(expected.getUpdateAt(), result.getUpdateAt());
+        assertEquals(expected.getName(), result.getName());
     }
 }

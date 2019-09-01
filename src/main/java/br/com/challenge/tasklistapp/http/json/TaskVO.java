@@ -21,6 +21,8 @@ public class TaskVO implements Serializable {
     @JsonInclude(Include.NON_NULL)
     private LocalDateTime updateAt;
 
+    private String name;
+
     private String description;
 
     private TaskStatus status;

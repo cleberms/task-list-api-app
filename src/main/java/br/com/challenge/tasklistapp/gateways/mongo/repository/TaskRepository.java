@@ -1,4 +1,4 @@
-package br.com.challenge.tasklistapp.gateways.mongo;
+package br.com.challenge.tasklistapp.gateways.mongo.repository;
 
 import br.com.challenge.tasklistapp.domains.Task;
 import org.springframework.data.mongodb.repository.MongoRepository;

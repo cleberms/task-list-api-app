@@ -2,6 +2,7 @@ package br.com.challenge.tasklistapp.gateways.mongo;
 
 import br.com.challenge.tasklistapp.domains.Task;
 import br.com.challenge.tasklistapp.gateways.TaskDataBaseGateway;
+import br.com.challenge.tasklistapp.gateways.mongo.repository.TaskRepository;
 import com.mongodb.MongoException;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,6 @@ public class TaskDataBaseGatewayImpl implements TaskDataBaseGateway {
     @Autowired
     private TaskRepository repository;
 
-    // TODO Passa o id da task
     public Task save(final Task task) {
 
         try {
