@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
-public class QueryTasksTest {
+public class QueryTasksUnitTest {
 
     @Mock
     private TaskDataBaseGateway gateway;

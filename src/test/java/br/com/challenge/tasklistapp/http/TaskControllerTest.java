@@ -2,6 +2,7 @@ package br.com.challenge.tasklistapp.http;
 
 import br.com.challenge.tasklistapp.domains.Task;
 import br.com.challenge.tasklistapp.domains.enums.TaskStatus;
+import br.com.challenge.tasklistapp.usecases.QueryTaskById;
 import br.com.challenge.tasklistapp.usecases.QueryTasks;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +38,9 @@ public class TaskControllerTest {
     @MockBean
     private QueryTasks queryTasks;
 
+    @MockBean
+    private QueryTaskById queryTaskById;
+
     private static final String API_PATH = "/api/tasks";
 
 
@@ -66,6 +70,22 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("[1].status", is(taskList.get(1).getStatus().toString())))
                 .andExpect(jsonPath("[1].reporterName", is(taskList.get(1).getReporterName())))
                 .andExpect(jsonPath("[1].assignedName", is(taskList.get(1).getAssignedName())));
+    }
+
+    @Test public void shouldGetTaskById() throws Exception {
+        final List<Task> taskList = getTasks();
+
+        when(queryTaskById.process(5004L)).thenReturn(taskList.get(0));
+
+        mockMvc.perform(get("/api/tasks/{id}", "5004"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.taskId", is(Integer.parseInt(taskList.get(0).getTaskId().toString()))))
+                .andExpect(jsonPath("$.createdAt", is(taskList.get(0).getCreatedAt().toString())))
+                .andExpect(jsonPath("$.updateAt", is(taskList.get(0).getUpdateAt().toString())))
+                .andExpect(jsonPath("$.description", is(taskList.get(0).getDescription())))
+                .andExpect(jsonPath("$.status", is(taskList.get(0).getStatus().toString())))
+                .andExpect(jsonPath("$.reporterName", is(taskList.get(0).getReporterName())))
+                .andExpect(jsonPath("$.assignedName", is(taskList.get(0).getAssignedName())));
     }
 
     private List<Task> getTasks() {
