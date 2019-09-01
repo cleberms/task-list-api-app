@@ -49,6 +49,7 @@ public class TaskDataBaseGatewayImpl implements TaskDataBaseGateway {
         final Task savedTask = this.findById(task.getTaskId());
 
         task.setUid(savedTask.getUid());
+        task.setCreatedAt(savedTask.getCreatedAt());
         task.setUpdateAt(LocalDateTime.now());
 
         return this.save(task);

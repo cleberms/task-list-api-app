@@ -7,6 +7,7 @@ import br.com.challenge.tasklistapp.http.json.mapper.TaskMappers.TaskMapper;
 import br.com.challenge.tasklistapp.usecases.CreateTask;
 import br.com.challenge.tasklistapp.usecases.QueryTaskById;
 import br.com.challenge.tasklistapp.usecases.QueryTasks;
+import br.com.challenge.tasklistapp.usecases.UpdateTask;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -39,6 +40,9 @@ public class TaskController {
     @Autowired
     private CreateTask createTask;
 
+    @Autowired
+    private UpdateTask updateTask;
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Resource to create a new task", response = TaskVO.class)
     @ResponseStatus(HttpStatus.CREATED)
@@ -70,17 +74,49 @@ public class TaskController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Resource to get tasks", response = TaskVO.class)
+    @ApiOperation(value = "Resource to get task by id", response = TaskVO.class)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<TaskVO> getTask(
-            @ApiParam(name = "ID")
-            @PathVariable("id") final Long taskId ) throws NotFoundException {
+            @ApiParam()
+            @PathVariable("id") final String taskId ) throws NotFoundException {
 
         log.info("Request to get task by id", kv("API", "GET_TASK_ID"));
 
-        Task task = queryTaskById.process(taskId);
+        Task task = queryTaskById.process(Long.parseLong(taskId));
 
         return new ResponseEntity<>(buildResponse(task), HttpStatus.OK);
+
+    }
+
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Resource to update task", response = TaskVO.class)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<TaskVO> updateTask(
+            @ApiParam()
+            @PathVariable("id") final String taskId,
+            @RequestBody @Valid final TaskVORequest request) throws NotFoundException {
+
+        log.info("Request to update task by id", kv("API", "UPDATE_TASK_ID"));
+
+        Task task = updateTask.process(buildTask(request), Long.parseLong(taskId));
+
+        return new ResponseEntity<>(buildResponse(task), HttpStatus.OK);
+
+    }
+
+    @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Resource to update task", response = TaskVO.class)
+    @ResponseStatus(HttpStatus.PARTIAL_CONTENT)
+    public ResponseEntity<TaskVO> updatePatchTask(
+            @ApiParam()
+            @PathVariable("id") final String taskId,
+            @RequestBody @Valid final TaskVORequest request) throws NotFoundException {
+
+        log.info("Request to patch task by id", kv("API", "PATCH_TASK_ID"));
+
+        Task task = updateTask.processPatch(buildTask(request), Long.parseLong(taskId));
+
+        return new ResponseEntity<>(buildResponse(task), HttpStatus.PARTIAL_CONTENT);
 
     }
 

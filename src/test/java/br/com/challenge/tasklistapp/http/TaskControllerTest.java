@@ -7,6 +7,7 @@ import br.com.challenge.tasklistapp.http.json.TaskVORequest;
 import br.com.challenge.tasklistapp.usecases.CreateTask;
 import br.com.challenge.tasklistapp.usecases.QueryTaskById;
 import br.com.challenge.tasklistapp.usecases.QueryTasks;
+import br.com.challenge.tasklistapp.usecases.UpdateTask;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +29,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,6 +49,9 @@ public class TaskControllerTest {
 
     @MockBean
     private CreateTask createTask;
+
+    @MockBean
+    private UpdateTask updateTask;
 
     private static final String API_PATH = "/api/tasks";
 
@@ -144,6 +147,48 @@ public class TaskControllerTest {
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(JsonConverter.toString(taskVORequest)))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldUpdateTaskSuccessfully() throws Exception {
+        TaskVORequest taskVORequest = new TaskVORequest("Task Name", "Task Description", "Report Name", "Assigned Name");
+        final List<Task> taskList = getTasks();
+
+        when(updateTask.process(any(), any())).thenReturn(taskList.get(0));
+
+        mockMvc.perform(put("/api/tasks/{id}", "5014")
+                .accept(MediaType.APPLICATION_JSON) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(JsonConverter.toString(taskVORequest)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.taskId", is(Integer.parseInt(taskList.get(0).getTaskId().toString()))))
+                .andExpect(jsonPath("$.createdAt", is(taskList.get(0).getCreatedAt().toString())))
+                .andExpect(jsonPath("$.updateAt", is(taskList.get(0).getUpdateAt().toString())))
+                .andExpect(jsonPath("$.description", is(taskList.get(0).getDescription())))
+                .andExpect(jsonPath("$.status", is(taskList.get(0).getStatus().toString())))
+                .andExpect(jsonPath("$.reporterName", is(taskList.get(0).getReporterName())))
+                .andExpect(jsonPath("$.assignedName", is(taskList.get(0).getAssignedName())));
+    }
+
+    @Test
+    public void shouldUpdatePatchTaskSuccessfully() throws Exception {
+        TaskVORequest taskVORequest = new TaskVORequest("Task Name", "Task Description", "Report Name", "Assigned Name");
+        final List<Task> taskList = getTasks();
+
+        when(updateTask.processPatch(any(), any())).thenReturn(taskList.get(0));
+
+        mockMvc.perform(patch("/api/tasks/{id}", "5014")
+                .accept(MediaType.APPLICATION_JSON) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(JsonConverter.toString(taskVORequest)))
+                .andExpect(status().isPartialContent())
+                .andExpect(jsonPath("$.taskId", is(Integer.parseInt(taskList.get(0).getTaskId().toString()))))
+                .andExpect(jsonPath("$.createdAt", is(taskList.get(0).getCreatedAt().toString())))
+                .andExpect(jsonPath("$.updateAt", is(taskList.get(0).getUpdateAt().toString())))
+                .andExpect(jsonPath("$.description", is(taskList.get(0).getDescription())))
+                .andExpect(jsonPath("$.status", is(taskList.get(0).getStatus().toString())))
+                .andExpect(jsonPath("$.reporterName", is(taskList.get(0).getReporterName())))
+                .andExpect(jsonPath("$.assignedName", is(taskList.get(0).getAssignedName())));
     }
 
     private List<Task> getTasks() {
