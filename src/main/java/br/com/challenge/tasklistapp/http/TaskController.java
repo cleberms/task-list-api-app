@@ -4,10 +4,7 @@ import br.com.challenge.tasklistapp.domains.Task;
 import br.com.challenge.tasklistapp.http.json.TaskVO;
 import br.com.challenge.tasklistapp.http.json.TaskVORequest;
 import br.com.challenge.tasklistapp.http.json.mapper.TaskMappers.TaskMapper;
-import br.com.challenge.tasklistapp.usecases.CreateTask;
-import br.com.challenge.tasklistapp.usecases.QueryTaskById;
-import br.com.challenge.tasklistapp.usecases.QueryTasks;
-import br.com.challenge.tasklistapp.usecases.UpdateTask;
+import br.com.challenge.tasklistapp.usecases.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -42,6 +39,9 @@ public class TaskController {
 
     @Autowired
     private UpdateTask updateTask;
+
+    @Autowired
+    private DeleteTask deleteTask;
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Resource to create a new task", response = TaskVO.class)
@@ -117,6 +117,21 @@ public class TaskController {
         Task task = updateTask.processPatch(buildTask(request), Long.parseLong(taskId));
 
         return new ResponseEntity<>(buildResponse(task), HttpStatus.PARTIAL_CONTENT);
+
+    }
+
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Resource to update task", response = TaskVO.class)
+    @ResponseStatus(HttpStatus.PARTIAL_CONTENT)
+    public ResponseEntity deleteTask(
+            @ApiParam()
+            @PathVariable("id") final String taskId) throws NotFoundException {
+
+        log.info("Request to patch task by id", kv("API", "PATCH_TASK_ID"));
+
+        deleteTask.process(Long.parseLong(taskId));
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
 

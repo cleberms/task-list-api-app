@@ -4,10 +4,7 @@ import br.com.challenge.tasklistapp.configs.JsonConverter;
 import br.com.challenge.tasklistapp.domains.Task;
 import br.com.challenge.tasklistapp.domains.enums.TaskStatus;
 import br.com.challenge.tasklistapp.http.json.TaskVORequest;
-import br.com.challenge.tasklistapp.usecases.CreateTask;
-import br.com.challenge.tasklistapp.usecases.QueryTaskById;
-import br.com.challenge.tasklistapp.usecases.QueryTasks;
-import br.com.challenge.tasklistapp.usecases.UpdateTask;
+import br.com.challenge.tasklistapp.usecases.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,6 +49,9 @@ public class TaskControllerTest {
 
     @MockBean
     private UpdateTask updateTask;
+
+    @MockBean
+    private DeleteTask deleteTask;
 
     private static final String API_PATH = "/api/tasks";
 
@@ -189,6 +189,13 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.status", is(taskList.get(0).getStatus().toString())))
                 .andExpect(jsonPath("$.reporterName", is(taskList.get(0).getReporterName())))
                 .andExpect(jsonPath("$.assignedName", is(taskList.get(0).getAssignedName())));
+    }
+
+    @Test
+    public void shouldDeleteTaskSuccessfully() throws Exception {
+
+    mockMvc.perform(delete("/api/tasks/{id}", "5014"))
+                .andExpect(status().isNoContent());
     }
 
     private List<Task> getTasks() {
