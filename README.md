@@ -65,3 +65,7 @@
   - API de tarefas: *http://localhost:8080*
   - Documentação: *http://localhost:8080/swagger-ui.html*
   - Kibana: *http://localhost:5601*
+  
+  ### Coverage
+  
+  ![coverage](https://github.com/cleberms/task-list-api-app/blob/master/coverage/coverage.png)
