@@ -1,0 +1,79 @@
+version: '3'
+services:
+  task-list-api-app:
+    image: task-list-app-image
+    container_name: task-list
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - /data/temp
+    networks:
+      - task-list-app
+
+  mongo:
+    build:
+      context: ./mongo/
+    image: mongo-task-list
+    hostname: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - task-list-app
+
+  elasticsearch:
+    build:
+      context: ./elasticsearch/
+    image: elasticsearch
+    container_name: elasticsearch
+    hostname: localhost
+    environment:
+      - discovery.type=single-node
+    expose:
+      - "9200"
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - task-list-app
+
+  logstash:
+    build:
+      context: ./logstash/
+    image: logstash
+    container_name: logstash
+    hostname: localhost
+    ports:
+      - 5000:5000
+      - 5044:5044
+      - 9600:9600
+    depends_on:
+      - elasticsearch
+    networks:
+      - task-list-app
+
+  kibana:
+    build:
+      context: ./kibana/
+    image: kibana
+    container_name: kibana
+    hostname: localhost
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    networks:
+      - task-list-app
+
+networks:
+  task-list-app:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.101.101.0/24
+

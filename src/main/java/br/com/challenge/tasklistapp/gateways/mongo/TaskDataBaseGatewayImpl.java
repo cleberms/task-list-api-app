@@ -26,9 +26,7 @@ public class TaskDataBaseGatewayImpl implements TaskDataBaseGateway {
 
         try {
 
-            if(task.getCreatedAt() == null) {
-                task.setCreatedAt(LocalDateTime.now());
-            }
+            task.setCreatedAt(LocalDateTime.now());
 
             final Task taskSaved = repository.save(task);
 
@@ -38,7 +36,7 @@ public class TaskDataBaseGatewayImpl implements TaskDataBaseGateway {
 
         } catch (Exception ex) {
 
-            log.error("Error to save task", kv("FEATURE", "SAVE"), kv("STATUS", "ERROR"));
+            log.error("Error to save task", kv("FEATURE", "SAVE"), kv("STATUS", "ERROR"), kv("EXCEPTION", ex));
 
             throw new MongoException("Error to save task");
         }
@@ -46,13 +44,34 @@ public class TaskDataBaseGatewayImpl implements TaskDataBaseGateway {
 
     public Task update(final Task task) throws NotFoundException {
 
-        final Task savedTask = this.findById(task.getTaskId());
+        try {
+            final Optional<Task> optionalTask = Optional.ofNullable(repository.findByTaskId(task.getTaskId()));
 
-        task.setUid(savedTask.getUid());
-        task.setCreatedAt(savedTask.getCreatedAt());
-        task.setUpdateAt(LocalDateTime.now());
+            if (optionalTask.isPresent()) {
 
-        return this.save(task);
+                final Task savedTask = optionalTask.get();
+
+                task.setUid(savedTask.getUid());
+                task.setCreatedAt(savedTask.getCreatedAt());
+                task.setUpdateAt(LocalDateTime.now());
+
+                final Task taskSaved = repository.save(task);
+
+                log.info("Task id = {} update successfully", kv("TASK_ID", task.getTaskId()), kv("FEATURE", "UPDATE"), kv("STATUS", "SUCCESS"));
+
+                return taskSaved;
+            }
+        }catch (Exception ex) {
+
+            log.error("Error to update task", kv("FEATURE", "UPDATE"), kv("STATUS", "ERROR"), kv("EXCEPTION", ex));
+
+            throw new MongoException("Error to update task");
+        }
+
+        log.info("Tasks not found", kv("FEATURE", "UPDATE"), kv("STATUS", "SUCCESS"));
+
+        throw new NotFoundException("Tasks not found");
+
     }
 
     public List<Task> findAll() throws NotFoundException {
@@ -67,7 +86,7 @@ public class TaskDataBaseGatewayImpl implements TaskDataBaseGateway {
             }
         } catch (Exception ex) {
 
-            log.error("Error to findAll tasks", kv("FEATURE", "FIND_ALL"), kv("STATUS", "ERROR"));
+            log.error("Error to findAll tasks", kv("FEATURE", "FIND_ALL"), kv("STATUS", "ERROR"), kv("EXCEPTION", ex));
 
             throw new MongoException("Error to find all tasks");
         }
@@ -90,7 +109,7 @@ public class TaskDataBaseGatewayImpl implements TaskDataBaseGateway {
             }
         } catch (Exception ex) {
 
-            log.error("Error to find tasks by status", kv("FEATURE", "FIND_ALL_BY_STATUS"), kv("STATUS", "ERROR"));
+            log.error("Error to find tasks by status", kv("FEATURE", "FIND_ALL_BY_STATUS"), kv("STATUS", "ERROR"), kv("EXCEPTION", ex));
 
             throw new MongoException(String.format("Error to find tasks by status %s", status));
         }
@@ -107,12 +126,12 @@ public class TaskDataBaseGatewayImpl implements TaskDataBaseGateway {
             final Optional<Task> optionalTask = Optional.ofNullable(repository.findByTaskId(id));
 
             if(optionalTask.isPresent()) {
-                log.info("Tasks id = {} found successfulle", kv("TASK_ID", id), kv("FEATURE", "FIND_BY_ID"), kv("STATUS", "SUCCESS"));
+                log.info("Tasks id = {} found successfully", kv("TASK_ID", id), kv("FEATURE", "FIND_BY_ID"), kv("STATUS", "SUCCESS"));
 
                 return optionalTask.get();
             }
         } catch (Exception ex) {
-            log.error("Error to find tasks with id = {}", kv("TASK_ID", id), kv("FEATURE", "FIND_BY_ID"), kv("STATUS", "ERROR"));
+            log.error("Error to find tasks with id = {}", kv("TASK_ID", id), kv("FEATURE", "FIND_BY_ID"), kv("STATUS", "ERROR"), kv("EXCEPTION", ex));
 
             throw new MongoException(String.format("Error to find task with id = %s", id));
         }
@@ -127,7 +146,7 @@ public class TaskDataBaseGatewayImpl implements TaskDataBaseGateway {
         try {
             repository.deleteByTaskId(id);
         } catch (Exception ex) {
-            log.error("Error to delete task with id = {}", kv("TASK_ID", id), kv("FEATURE", "DELETE_BY_ID"), kv("STATUS", "ERROR"));
+            log.error("Error to delete task with id = {}", kv("TASK_ID", id), kv("FEATURE", "DELETE_BY_ID"), kv("STATUS", "ERROR"), kv("EXCEPTION", ex));
 
             throw new MongoException(String.format("Error to delete task with id = %s", id));
         }

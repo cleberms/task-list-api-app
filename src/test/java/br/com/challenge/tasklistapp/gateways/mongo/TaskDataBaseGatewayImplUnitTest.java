@@ -277,7 +277,7 @@ public class TaskDataBaseGatewayImplUnitTest {
         try {
             gateway.update(taskToUpdate);
         } catch (Exception ex) {
-            assertEquals("Error to save task", ex.getMessage());
+            assertEquals("Error to update task", ex.getMessage());
             verify(repository, VerificationModeFactory.times(1)).findByTaskId(any());
             verify(repository, VerificationModeFactory.times(1)).save(any());
 
@@ -298,7 +298,7 @@ public class TaskDataBaseGatewayImplUnitTest {
         try {
             gateway.update(taskToUpdate);
         } catch (Exception ex) {
-            assertEquals("Task with id 5014 not found", ex.getMessage());
+            assertEquals("Tasks not found", ex.getMessage());
             verify(repository, VerificationModeFactory.times(1)).findByTaskId(any());
 
             throw ex;

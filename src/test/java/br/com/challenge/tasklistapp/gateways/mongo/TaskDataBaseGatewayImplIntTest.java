@@ -123,6 +123,28 @@ public class TaskDataBaseGatewayImplIntTest {
         assertEquals(1, taskList.size());
     }
 
+    @Test
+    public void shouldUpdateTaskSuccessfully() throws NotFoundException {
+        final List<Task> taskListMock = getTasks();
+
+        gateway.save(taskListMock.get(0));
+
+        Task taskToUpdate = taskListMock.get(1);
+        taskToUpdate.setTaskId(taskListMock.get(0).getTaskId());
+
+        Task result = gateway.update(taskToUpdate);
+
+        assertEquals(taskToUpdate.getAssignedName(), result.getAssignedName());
+        assertEquals(taskToUpdate.getCreatedAt(), result.getCreatedAt());
+        assertEquals(taskToUpdate.getDescription(), result.getDescription());
+        assertEquals(taskToUpdate.getReporterName(), result.getReporterName());
+        assertEquals(taskToUpdate.getStatus(), result.getStatus());
+        assertEquals(taskToUpdate.getTaskId(), result.getTaskId());
+        assertEquals(taskToUpdate.getUid(), result.getUid());
+        assertEquals(taskToUpdate.getUpdateAt(), result.getUpdateAt());
+        assertEquals(taskToUpdate.getName(), result.getName());
+    }
+
     private List<Task> getTasks() {
         List<Task> taskList = new ArrayList<>();
 

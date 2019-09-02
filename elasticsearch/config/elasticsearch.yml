@@ -1,0 +1,20 @@
+cluster.name: "cl_docker_es"
+node.name: "nd_docker_es"
+network.host: 0.0.0.0
+
+# minimum_master_nodes need to be explicitly set when bound on a public IP
+# set to 1 to allow single node clusters
+# Details: https://github.com/elastic/elasticsearch/pull/17288
+discovery.zen.minimum_master_nodes: 1
+
+# Enabling Anonymous Access
+xpack.security.authc:
+  anonymous:
+    roles: watcher_admin, logstash_system, kibana_user, machine_learning_user, remote_monitoring_agent, machine_learning_admin, watcher_user, monitoring_user, reporting_user, kibana_system, transport_client, superuser, ingest_admin
+    authz_exception: true
+
+xpack.security.enabled: false
+xpack.security.authc.accept_default_password: false
+
+http.cors.enabled: true
+http.cors.allow-origin: "*"
