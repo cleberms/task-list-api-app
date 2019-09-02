@@ -1,0 +1,140 @@
+[
+  {
+    "_id": "578c7700-cd28-11e9-b2ef-7f84f2d40c5e",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Operacional Tarefas",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"panelIndex\":\"1\",\"gridData\":{\"x\":0,\"y\":0,\"w\":6,\"h\":3,\"i\":\"1\"},\"version\":\"6.2.4\",\"type\":\"visualization\",\"id\":\"fdf85930-cd2b-11e9-8c36-e38ba7610c81\"},{\"panelIndex\":\"2\",\"gridData\":{\"x\":6,\"y\":0,\"w\":6,\"h\":3,\"i\":\"2\"},\"version\":\"6.2.4\",\"type\":\"visualization\",\"id\":\"0cffb310-cd2c-11e9-8c36-e38ba7610c81\"},{\"panelIndex\":\"3\",\"gridData\":{\"x\":0,\"y\":3,\"w\":6,\"h\":3,\"i\":\"3\"},\"version\":\"6.2.4\",\"type\":\"visualization\",\"id\":\"273b8ce0-cd2c-11e9-8c36-e38ba7610c81\"},{\"panelIndex\":\"4\",\"gridData\":{\"x\":6,\"y\":3,\"w\":6,\"h\":3,\"i\":\"4\"},\"version\":\"6.2.4\",\"type\":\"visualization\",\"id\":\"45ece940-cd2c-11e9-8c36-e38ba7610c81\"},{\"panelIndex\":\"5\",\"gridData\":{\"x\":0,\"y\":6,\"w\":6,\"h\":3,\"i\":\"5\"},\"version\":\"6.2.4\",\"type\":\"visualization\",\"id\":\"33edfa40-cd2c-11e9-8c36-e38ba7610c81\"},{\"panelIndex\":\"6\",\"gridData\":{\"x\":6,\"y\":6,\"w\":6,\"h\":3,\"i\":\"6\"},\"version\":\"6.2.4\",\"type\":\"visualization\",\"id\":\"547e9df0-cd2c-11e9-8c36-e38ba7610c81\"},{\"panelIndex\":\"7\",\"gridData\":{\"x\":0,\"y\":9,\"w\":6,\"h\":3,\"i\":\"7\"},\"version\":\"6.2.4\",\"type\":\"visualization\",\"id\":\"bda89d30-cd2c-11e9-8c36-e38ba7610c81\"}]",
+      "optionsJSON": "{\"darkTheme\":false,\"hidePanelTitles\":false,\"useMargins\":true}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"query\":{\"language\":\"lucene\",\"query\":\"\"},\"filter\":[],\"highlightAll\":true,\"version\":true}"
+      }
+    },
+    "_meta": {
+      "savedObjectVersion": 2
+    }
+  },
+  {
+    "_id": "fdf85930-cd2b-11e9-8c36-e38ba7610c81",
+    "_type": "visualization",
+    "_source": {
+      "title": "Criar Tarefa",
+      "visState": "{\"title\":\"Criar Tarefa\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"STATUS.keyword\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}]}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"c6d7e1d0-cd2d-11e9-a65a-2d0ede8b4678\",\"filter\":[{\"meta\":{\"index\":\"4378d170-cd2b-11e9-8c36-e38ba7610c81\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"FEATURE\",\"value\":\"SAVE\",\"params\":{\"query\":\"SAVE\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"FEATURE\":{\"query\":\"SAVE\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+      }
+    },
+    "_meta": {
+      "savedObjectVersion": 2
+    }
+  },
+  {
+    "_id": "273b8ce0-cd2c-11e9-8c36-e38ba7610c81",
+    "_type": "visualization",
+    "_source": {
+      "title": "Consultar Tarefas",
+      "visState": "{\"title\":\"Consultar Tarefas\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"STATUS.keyword\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}]}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"c6d7e1d0-cd2d-11e9-a65a-2d0ede8b4678\",\"filter\":[{\"meta\":{\"index\":\"4378d170-cd2b-11e9-8c36-e38ba7610c81\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"FEATURE\",\"value\":\"FIND_ALL\",\"params\":{\"query\":\"FIND_ALL\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"FEATURE\":{\"query\":\"FIND_ALL\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+      }
+    },
+    "_meta": {
+      "savedObjectVersion": 2
+    }
+  },
+  {
+    "_id": "33edfa40-cd2c-11e9-8c36-e38ba7610c81",
+    "_type": "visualization",
+    "_source": {
+      "title": "Consultar Tarefas Status",
+      "visState": "{\"title\":\"Consultar Tarefas Status\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"STATUS.keyword\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}]}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"c6d7e1d0-cd2d-11e9-a65a-2d0ede8b4678\",\"filter\":[{\"meta\":{\"index\":\"4378d170-cd2b-11e9-8c36-e38ba7610c81\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"FEATURE\",\"value\":\"FIND_ALL_BY_STATUS\",\"params\":{\"query\":\"FIND_ALL_BY_STATUS\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"FEATURE\":{\"query\":\"FIND_ALL_BY_STATUS\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+      }
+    },
+    "_meta": {
+      "savedObjectVersion": 2
+    }
+  },
+  {
+    "_id": "45ece940-cd2c-11e9-8c36-e38ba7610c81",
+    "_type": "visualization",
+    "_source": {
+      "title": "Consultar Tarefas ID",
+      "visState": "{\"title\":\"Consultar Tarefas ID\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"STATUS.keyword\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}]}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"c6d7e1d0-cd2d-11e9-a65a-2d0ede8b4678\",\"filter\":[{\"meta\":{\"index\":\"4378d170-cd2b-11e9-8c36-e38ba7610c81\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"FEATURE\",\"value\":\"FIND_BY_ID\",\"params\":{\"query\":\"FIND_BY_ID\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"FEATURE\":{\"query\":\"FIND_BY_ID\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+      }
+    },
+    "_meta": {
+      "savedObjectVersion": 2
+    }
+  },
+  {
+    "_id": "547e9df0-cd2c-11e9-8c36-e38ba7610c81",
+    "_type": "visualization",
+    "_source": {
+      "title": "Deletar Tarefas",
+      "visState": "{\"title\":\"Deletar Tarefas\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"STATUS.keyword\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}]}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"c6d7e1d0-cd2d-11e9-a65a-2d0ede8b4678\",\"filter\":[{\"meta\":{\"index\":\"4378d170-cd2b-11e9-8c36-e38ba7610c81\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"FEATURE\",\"value\":\"DELETE_BY_ID\",\"params\":{\"query\":\"DELETE_BY_ID\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"FEATURE\":{\"query\":\"DELETE_BY_ID\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+      }
+    },
+    "_meta": {
+      "savedObjectVersion": 2
+    }
+  },
+  {
+    "_id": "0cffb310-cd2c-11e9-8c36-e38ba7610c81",
+    "_type": "visualization",
+    "_source": {
+      "title": "Atualizar Tarefa",
+      "visState": "{\"title\":\"Atualizar Tarefa\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"STATUS.keyword\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}]}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"c6d7e1d0-cd2d-11e9-a65a-2d0ede8b4678\",\"filter\":[{\"meta\":{\"index\":\"4378d170-cd2b-11e9-8c36-e38ba7610c81\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"FEATURE\",\"value\":\"UPDATE\",\"params\":{\"query\":\"UPDATE\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"FEATURE\":{\"query\":\"UPDATE\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+      }
+    },
+    "_meta": {
+      "savedObjectVersion": 2
+    }
+  },
+  {
+    "_id": "bda89d30-cd2c-11e9-8c36-e38ba7610c81",
+    "_type": "visualization",
+    "_source": {
+      "title": "TOTAL",
+      "visState": "{\"title\":\"TOTAL\",\"type\":\"metric\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"metric\",\"metric\":{\"percentageMode\":false,\"useRanges\":false,\"colorSchema\":\"Green to Red\",\"metricColorMode\":\"None\",\"colorsRange\":[{\"from\":0,\"to\":10000}],\"labels\":{\"show\":true},\"invertColors\":false,\"style\":{\"bgFill\":\"#000\",\"bgColor\":false,\"labelColor\":false,\"subText\":\"\",\"fontSize\":60}}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"FEATURE.keyword\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}]}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"c6d7e1d0-cd2d-11e9-a65a-2d0ede8b4678\",\"filter\":[{\"meta\":{\"index\":\"4378d170-cd2b-11e9-8c36-e38ba7610c81\",\"type\":\"phrases\",\"key\":\"FEATURE\",\"value\":\"SAVE, UPDATE, FIND_ALL, FIND_ALL_BY_STATUS, FIND_BY_ID, DELETE_BY_ID\",\"params\":[\"SAVE\",\"UPDATE\",\"FIND_ALL\",\"FIND_ALL_BY_STATUS\",\"FIND_BY_ID\",\"DELETE_BY_ID\"],\"negate\":false,\"disabled\":false,\"alias\":null},\"query\":{\"bool\":{\"should\":[{\"match_phrase\":{\"FEATURE\":\"SAVE\"}},{\"match_phrase\":{\"FEATURE\":\"UPDATE\"}},{\"match_phrase\":{\"FEATURE\":\"FIND_ALL\"}},{\"match_phrase\":{\"FEATURE\":\"FIND_ALL_BY_STATUS\"}},{\"match_phrase\":{\"FEATURE\":\"FIND_BY_ID\"}},{\"match_phrase\":{\"FEATURE\":\"DELETE_BY_ID\"}}],\"minimum_should_match\":1}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+      }
+    },
+    "_meta": {
+      "savedObjectVersion": 2
+    }
+  }
+]

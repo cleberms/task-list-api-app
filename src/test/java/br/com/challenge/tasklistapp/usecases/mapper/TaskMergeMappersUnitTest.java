@@ -24,8 +24,8 @@ public class TaskMergeMappersUnitTest {
 
         assertNotNull(result);
 
-        assertEquals(taskToUpdate.getStatus(), TaskStatus.WIP);
-        assertEquals(taskToUpdate.getAssignedName(), "Cleber Santaterra");
+        assertEquals(TaskStatus.WIP, taskToUpdate.getStatus());
+        assertEquals("Cleber Santaterra", taskToUpdate.getAssignedName());
 
         assertEquals(result.getUid(), savedTask.getUid());
         assertEquals(result.getCreatedAt(), savedTask.getCreatedAt());

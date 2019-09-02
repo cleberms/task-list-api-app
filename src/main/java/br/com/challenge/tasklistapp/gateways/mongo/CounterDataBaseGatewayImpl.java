@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 
 import static net.logstash.logback.argument.StructuredArguments.kv;
 import static org.springframework.data.mongodb.core.FindAndModifyOptions.options;

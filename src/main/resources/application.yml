@@ -5,4 +5,4 @@ spring:
     name: task-list
   data:
       mongodb:
-        uri: ${MONGODB_URI:mongodb://heroku_0nngbvrm:29bnvmu1j994a96lqmdim9pju6@ds213513.mlab.com:13513/heroku_0nngbvrm}
+        uri: mongodb://localhost:27017/dbTask?serverSelectionTimeoutMS=1000&connectTimeoutMS=1000

@@ -1,18 +1,5 @@
 version: '3'
 services:
-  task-list-api-app:
-    image: task-list-app-image
-    container_name: task-list
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    ports:
-      - 8080:8080
-    volumes:
-      - /data/temp
-    networks:
-      - task-list-app
-
   mongo:
     build:
       context: ./mongo/
@@ -30,7 +17,7 @@ services:
       context: ./elasticsearch/
     image: elasticsearch
     container_name: elasticsearch
-    hostname: localhost
+    hostname: elasticsearch
     environment:
       - discovery.type=single-node
     expose:
@@ -46,7 +33,7 @@ services:
       context: ./logstash/
     image: logstash
     container_name: logstash
-    hostname: localhost
+    hostname: logstash
     ports:
       - 5000:5000
       - 5044:5044
@@ -61,7 +48,7 @@ services:
       context: ./kibana/
     image: kibana
     container_name: kibana
-    hostname: localhost
+    hostname: kibana
     ports:
       - 5601:5601
     depends_on:
